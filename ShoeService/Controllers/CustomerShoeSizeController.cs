@@ -31,10 +31,10 @@ public class CustomerShoeSizeController : ControllerBase
     /// <summary>
     /// Returns the shoe size of the provided customer in the requested format
     /// </summary>
-    /// Changed to Get with a Body as more secure
+    /// Changed to Post with a Body as more secure
 
     /// <returns>the found and format-converted customer shoe size</returns>
-    [HttpGet]
+    [HttpPost]
     [Route("shoe-size")]
     [Produces("application/json")]
     public async Task<ActionResult<CustomerShoeSize>> GetShoeSize(

@@ -8,8 +8,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
+builder.Services.AddLogging();
 builder.Services.AddSingleton(new CustomerRepository());
 builder.Services.AddSingleton(new StatisticsService());
+builder.Services.AddSingleton<CustomerShoeService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
