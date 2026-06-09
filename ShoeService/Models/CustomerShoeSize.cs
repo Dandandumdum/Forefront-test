@@ -1,7 +1,11 @@
 namespace ShoeService.Models;
     public class CustomerShoeSize
     {
-        public int CustomerId { get; set; }
+    private int? id;
+    private double size;
+    private string dateString;
+
+    public int CustomerId { get; set; }
 
         public double ShoeSize { get; set; }
 
@@ -16,5 +20,13 @@ namespace ShoeService.Models;
             Fullname = fullname;
             BirthDate = birthDate;
         }
+
+    public CustomerShoeSize(int? id, double size, string fullname, string dateString)
+    {
+        this.id = id;
+        this.size = size;
+        Fullname = fullname;
+        this.dateString = dateString;
     }
+}
     

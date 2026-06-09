@@ -52,7 +52,7 @@ public class CustomerShoeService
             return null;
         }
 
-        Customer customer = null;
+        Customer customer = new Customer();
         if (customerId != null)
         {
             customer = await _customerRepository.FindCustomerById(customerId.Value);
@@ -67,6 +67,7 @@ public class CustomerShoeService
             Task<List<Customer>> groupCustomers = _customerRepository.FindCustomersByGroupId(groupId.Value);
             int inGroupIdxValue = inGroupIdx.Value;
             customer = (await groupCustomers).Where(c => c.InGroupIndex == inGroupIdxValue).First();
+            customerId = customer.Id;
         }
 
         if (request.RecentEmail != null && request.RecentEmail.Length > 0)
@@ -113,10 +114,15 @@ public class CustomerShoeService
             await _statisticsService.RegisterStatistic("big_shoe_size", 1);
         }
 
+        if (customer == null)
+        {
+            throw new InvalidOperationException("Customer not found");
+        }
+
         DateTime birthDate = customer.BirthDate;
         string dateString = birthDate.ToString(DATE_FORMAT);
 
-        return new CustomerShoeSize(customerId.Value, size, customer.Fullname, dateString);
+        return new CustomerShoeSize(customer.Id, size, customer.Fullname, dateString);
 
     }
 
