@@ -30,6 +30,12 @@ public class CustomerShoeService
         if (request.CustomerIdentification.StartsWith("G"))
         {
             // parse in-group identifiers, e.g. G123-4
+            //Error if Group Identifier is in the wrong format, e.g. G123 or G-4 or G123-4-5
+            if (!request.CustomerIdentification.Contains("-"))
+            {
+                throw new ArgumentException("Invalid group identifier format");
+            }
+
             string[] parts = request.CustomerIdentification.Split("-");
             string groupIdStr = parts[0].Substring(1);
             string inGroupIndexStr = parts[1];
